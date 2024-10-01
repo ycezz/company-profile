@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreTeamRequest;
 use App\Models\OurTeam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreTeamRequest;
 
 class OurTeamController extends Controller
 {
@@ -31,7 +32,21 @@ class OurTeamController extends Controller
      */
     public function store(StoreTeamRequest $request)
     {
-        //
+        // insert kepada database pada table tertentu
+        // closure based-transaction
+        DB::transaction(function () use ($request) {
+            $validated = $request->validated();
+
+            if($request->hasFile('avatar')){
+                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                $validated['avatar'] = $avatarPath;
+            }
+
+            $newTeam = OurTeam::create($validated);
+
+        });
+
+        return redirect()->route('admin.teams.index');
     }
 
     /**
