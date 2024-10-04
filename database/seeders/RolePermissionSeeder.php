@@ -15,7 +15,7 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $permission = [ //variabel untuk mengubah data perubahan content di FE
+        $permissions = [ //variabel untuk mengubah data perubahan content di FE
             'manage statistics', 
             'manage products', 
             'manage principles', 
@@ -27,7 +27,7 @@ class RolePermissionSeeder extends Seeder
             'manage hero sections', 
         ];
 
-        foreach($permission as $permission) {
+        foreach($permissions as $permission) {
             Permission::firstOrCreate([
                     'name' => $permission
                 ]);
@@ -44,12 +44,10 @@ class RolePermissionSeeder extends Seeder
         ];
         $designManagerRole->syncPermissions($designManagerPermission); //syncPermissions()
 
-        $superAdminRole = Role::firstOrCreate(
-            [
+        $superAdminRole = Role::firstOrCreate([
                 'name' => 'super_admin'
-            ]
-            );
-
+            ]);
+        
         $user = User::create([
             'name' =>'ProfileCompany',
             'email' => 'super@admin.com',
@@ -57,6 +55,6 @@ class RolePermissionSeeder extends Seeder
         ]);
 
         $user->assignRole($superAdminRole); //Assign role ke user
-
+        
     }
 }

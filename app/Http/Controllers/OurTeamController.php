@@ -79,5 +79,10 @@ class OurTeamController extends Controller
     public function destroy(OurTeam $ourTeam)
     {
         //
+        DB::transaction(function() use ($ourTeam) {
+            $ourTeam->delete();
+        });
+
+        return redirect()->route('admin.teams.index');
     }
 }

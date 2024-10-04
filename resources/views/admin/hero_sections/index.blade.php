@@ -28,7 +28,7 @@
                             <h3 class="text-indigo-950 text-xl font-bold">{{ $hero_section->created_at }}</h3>
                         </div>
                         <div class="hidden md:flex flex-row items-center gap-x-3">
-                            <a href="{{ route('admin.hero_sections.edit'), $hero_section }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
+                            <a href="{{ route('admin.hero_sections.edit', $hero_section) }}" class="font-bold py-4 px-6 bg-indigo-700 text-white rounded-full">
                                 Edit
                             </a>
                             <form action="{{ route('admin.hero_sections.destroy', $hero_section) }}" method="POST"> 
